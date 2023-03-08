@@ -93,6 +93,14 @@ services:
     # been able to get it to work good so far.
     network_mode: host
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hahttp.rule=Host(`home.${DOMAIN}`)"
+      - "traefik.http.routers.ha.rule=Host(`home.${DOMAIN}`)"
+      - "traefik.http.routers.ha.tls=true"
+      - "traefik.http.routers.ha.tls.certresolver=myresolver"
+      - "traefik.http.routers.ha.tls.domains[0].main=home.${DOMAIN}"
+      - "traefik.http.services.homeassistant.loadbalancer.server.port=8123"
 
   mosquitto:
     image: eclipse-mosquitto
