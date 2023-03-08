@@ -29,3 +29,14 @@ services:
     # been able to get it to work good so far.
     network_mode: host
     restart: unless-stopped
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    volumes:
+      - ${PROJECT_ROOT}/mosquitto:/mosquitto
+    networks:
+      - default
+    ports:
+      - "1883:1883"
+      - "9001:9001"
