@@ -28,11 +28,13 @@ services:
       - ${PROJECT_ROOT}/traefik/letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     command:
       # Accept self-signed backend certificates
       - "--serversTransport.insecureSkipVerify=true"
       # Only accept access to traefik dashboard through proxy.
-      - "--api.insecure=true"
+      - "--api.insecure=false"
       # enables the use of labels on services
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
@@ -40,6 +42,11 @@ services:
       # http/https entrypoints
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
+      # ssl certificate
+      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.myresolver.acme.email=${DOMAIN_CONTACT_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
 
   portainer:
     image: portainer/portainer-ce:latest
