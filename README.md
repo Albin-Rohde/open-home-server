@@ -14,7 +14,7 @@ easy way to this without getting a shell on the container and doing it manually.
 will not be a part of the compose file. I would regardless put firewall rules to only 
 allow 80, 443 and ssh from within lan subnet. So the password wont be critical anyhow.
 
-### Nodered
+#### Nodered
 Adding nodered to the project and starting it is quiet straight forward. However, 
 connecting it to ha takes a few steps i found a usefull guide [here](https://sequr.be/blog/2022/09/home-assistant-container-part-5-node-red/).
 The guide describes setting up "panel_iframe". Something i tried but didnt find that 
