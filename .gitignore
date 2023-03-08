@@ -1,0 +1,21 @@
+# Keys and certs
+*.key
+*.pem
+*.cert
+*.crt
+
+# Log files
+*.log
+*.logs
+*.log.*
+*.log.fault*
+
+# db config and db on file
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# .env file store all docker container environemnts such as db passwords etc
+.env
