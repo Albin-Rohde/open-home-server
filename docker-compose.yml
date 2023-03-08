@@ -47,6 +47,18 @@ services:
       - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=cloudflare"
       - "--certificatesresolvers.myresolver.acme.email=${DOMAIN_CONTACT_EMAIL}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    labels:
+      - "traefik.enable=true"
+      # global redirect http to https middleware
+      - "traefik.http.routers.http-catchall.entrypoints=http"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z-.]+}`)"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      # traefik dashboard
+      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.routers.traefik.rule=Host(`proxy.${DOMAIN}`)" # The dashboard will be available at proxy.yourdomain.tld change this as you which
+      - "traefik.http.routers.traefik.tls.certresolver=myresolver"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
 
   portainer:
     image: portainer/portainer-ce:latest
