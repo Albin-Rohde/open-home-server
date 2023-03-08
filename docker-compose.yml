@@ -124,3 +124,11 @@ services:
       - ${PROJECT_ROOT}/nodered/data:/data
     depends_on:
       - homeassistant
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.noderedhttp.rule=Host(`nodered.${DOMAIN}`)"
+      - "traefik.http.routers.nodered.rule=Host(`nodered.${DOMAIN}`)"
+      - "traefik.http.routers.nodered.tls=true"
+      - "traefik.http.routers.nodered.tls.certresolver=myresolver"
+      - "traefik.http.routers.nodered.tls.domains[0].main=nodered.${DOMAIN}"
+      - "traefik.http.services.nodered.loadbalancer.server.port=1880"
