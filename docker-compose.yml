@@ -13,3 +13,19 @@ services:
       - portainer_data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
+  homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    container_name: homeassistant
+    volumes:
+      - ${PROJECT_ROOT}/home-assistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - /dev:/dev
+    privileged: true
+    # To make ha able to use "auto discover" set network mode to "host"
+    # I've had issued connecting to IKEA Gateway and Chromecasts when running in
+    # container network. I would like ha to run on a docker defined network, but has not
+    # been able to get it to work good so far.
+    network_mode: host
+    restart: unless-stopped
