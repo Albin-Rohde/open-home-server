@@ -3,6 +3,16 @@ version: "3.4"
 volumes:
   portainer_data: {}
 
+networks:
+  proxy:
+    driver: bridge
+    external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.1.0.0/16
+
+
 services:
   portainer:
     image: portainer/portainer-ce:latest
