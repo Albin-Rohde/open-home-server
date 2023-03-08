@@ -23,3 +23,10 @@ showing it iframed within ha.
 
 Don't forget to create the node-red directory before starting the container for the
 first time, since docker won't be able to mapp the volume, it'll throw an error.
+
+#### HACS
+HACS is an open source third party plugin to ha, it will make it possible to listen for
+events from devices set-up from within ha, in node-red. Personally i found it to be the
+easiest and smoothest way to control iot devices with node-red. It requires a few steps
+to get working but their [github](https://github.com/zachowj/hass-node-red) has excellent 
+instructions.
