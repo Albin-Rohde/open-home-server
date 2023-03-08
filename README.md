@@ -13,3 +13,13 @@ password for mqtt in the guide. Something you absolutely could do, i did not fin
 easy way to this without getting a shell on the container and doing it manually. So it
 will not be a part of the compose file. I would regardless put firewall rules to only 
 allow 80, 443 and ssh from within lan subnet. So the password wont be critical anyhow.
+
+### Nodered
+Adding nodered to the project and starting it is quiet straight forward. However, 
+connecting it to ha takes a few steps i found a usefull guide [here](https://sequr.be/blog/2022/09/home-assistant-container-part-5-node-red/).
+The guide describes setting up "panel_iframe". Something i tried but didnt find that 
+useful. Node-red flows tend to take up some screen space, i did not see the point in 
+showing it iframed within ha.
+
+Don't forget to create the node-red directory before starting the container for the
+first time, since docker won't be able to mapp the volume, it'll throw an error.

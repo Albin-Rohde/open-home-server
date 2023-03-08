@@ -40,3 +40,15 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+
+  nodered:
+    container_name: nodered
+    image: nodered/node-red
+    restart: unless-stopped
+    network_mode: host # For same reason as ha
+    environment:
+      - TZ=Europe/Stockholm
+    volumes:
+      - ${PROJECT_ROOT}/nodered/data:/data
+    depends_on:
+      - homeassistant
